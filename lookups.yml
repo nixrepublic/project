@@ -1,0 +1,8 @@
+- name: simple lookups demo
+  hosts: localhost
+  vars:
+    find_file: "{{ lookup('first_found', 'files/somefile.txt', 'files/someotherfile.txt') }}"
+  tasks:
+    - name: Simple lookup usage
+      debug:
+        msg: "{{ lookup('file', find_file ) }}"

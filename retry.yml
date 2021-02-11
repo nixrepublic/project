@@ -1,0 +1,15 @@
+---
+- name: Demo retries
+  hosts:
+    - localhost
+  tasks:
+    - name: Retry task
+      shell: echo $(($RANDOM % 4))
+      register: results
+      until: results.stdout == "2"
+      retries: 3
+      delay: 1
+    
+    - name: Print the number
+      debug:
+        msg: "{{ results.stdout }}"

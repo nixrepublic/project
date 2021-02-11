@@ -31,29 +31,28 @@
         state: present
         create_home: true
       when: '"servers" in group_names'
-    
+
     - block:
-      - name: Create the ansible user on the local machine
-        user:
-          <<: *createuser
-          password: "{{ password }}"
-          generate_ssh_key: true
- 
-      - name: Read in the ssh key from the local machine's ansible user
-        shell: /bin/cat /home/ansible/.ssh/id_rsa.pub
-        become_user: ansible
-        register: ssh_key
+        - name: Create the ansible user on the local machine
+          user:
+            <<: *createuser
+            password: "{{ password }}"
+            generate_ssh_key: true
+
+        - name: Read in the ssh key from the local machine's ansible user
+          shell: /bin/cat /home/ansible/.ssh/id_rsa.pub
+          become_user: ansible
+          register: ssh_key
       when: inventory_hostname == 'localhost'
-        
+
     - name: Create the file in sudoers.d for the ansible user
       copy:
         content: "ansible ALL=(ALL) NOPASSWD: ALL"
         dest: /etc/sudoers.d/ansible
+        mode: 0655
 
-      
     - name: Copy over the ssh public key for key based access
       authorized_key:
-          user: ansible
-          key: "{{ hostvars['localhost']['ssh_key']['stdout'] }}"
-          state: present
-
+        user: ansible
+        key: "{{ hostvars['localhost']['ssh_key']['stdout'] }}"
+        state: present

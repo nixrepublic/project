@@ -1,0 +1,14 @@
+- name: Demo task 1
+  debug:
+    var: ansible_loop
+  loop: 
+    - item1
+    - item2
+    - item3
+  loop_control:
+    loop_var: inner
+    extended: true
+  
+
+
+  

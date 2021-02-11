@@ -1,0 +1,20 @@
+- name: Unsafe strings demo
+  hosts: localhost
+  vars:
+    password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          36643337306539363537393031623030376139353130333734653331616636633836396634336462
+          6563363861666262323631356139386665623230326464630a656662383033633261323836363734
+          35316366633366336664643036343062666436313536373065643065376431653230633730353961
+          3062303535386337300a666163643831656466373361396662373463333737326630636366656663
+          3530
+  vars_prompt:
+    - name: unsafe_string
+      prompt: Provide some input
+      private: false
+      unsafe: true
+  
+  tasks:
+    - name: Print out input
+      debug:
+        msg: !unsafe "{{ unsafe_string }}"

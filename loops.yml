@@ -1,0 +1,6 @@
+- name: simple lookups demo
+  hosts: localhost
+  tasks:
+    - include_tasks: tasks/tasks1.yml
+
+

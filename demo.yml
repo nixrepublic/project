@@ -1,0 +1,13 @@
+- name: A demo
+  hosts: localhost
+  vars:
+    var1: Regex filters are powerful
+    
+  tasks:
+    - name: Some other task
+      command: date
+      
+    - name: Print out message
+      debug:
+        msg: "{{ some_var }}"
+        verbosity: 2

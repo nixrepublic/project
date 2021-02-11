@@ -1,0 +1,26 @@
+---
+- name: Simple play
+  hosts: localhost
+  vars:
+    somevar: Something
+    var1: Test
+  tasks:
+    - name: task 1
+      debug: 
+        msg: "{{ var1 }}"
+      tags:
+        - tag1
+        - tag2  
+
+    - name: task 2
+      debug: 
+        msg: "This is task 2"
+      tags:
+        - always
+        - never
+
+    - name: task 3
+      debug:
+        msg: "Stuff"
+      tags:
+        - tag3

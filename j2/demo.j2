@@ -1,0 +1,5 @@
+This sample Jinja2 template
+
+{% for ip in lookup('lines', 'cat files/ip_addresses.txt', wantlist=true) %}
+IP address = {{ ip }}
+{% endfor %}

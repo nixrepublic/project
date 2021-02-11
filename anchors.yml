@@ -1,0 +1,20 @@
+---
+- name: Demo of anchors and aliases
+  hosts:
+    - localhost
+  vars:
+    fruits: &demo
+      - Apple
+      - Pear
+      - Orange
+      - Lemon
+
+  tasks:
+    - name: Print the list
+      debug:
+        msg: "{{ fruits | flatten }}"
+      vars:
+        fruits:
+          - *demo
+          - Watermelon
+
